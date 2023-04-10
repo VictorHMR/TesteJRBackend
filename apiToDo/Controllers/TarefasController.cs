@@ -11,7 +11,7 @@ namespace apiToDo.Controllers
     public class TarefasController : ControllerBase
     {
         [HttpGet("buscarTarefa")]
-        public ActionResult exibirTarefa([FromQuery] int ID_TAREFA)
+        public ActionResult buscarTarefa([FromQuery] int ID_TAREFA)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace apiToDo.Controllers
         }
 
         [HttpDelete("DeletarTarefa")]
-        public ActionResult DeleteTask([FromQuery] int ID_TAREFA)
+        public ActionResult DeleteTask([FromBody] int ID_TAREFA)
         {
             try
             {
