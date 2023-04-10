@@ -30,10 +30,8 @@ namespace apiToDo.Controllers
         {
             try
             {
-
-                return StatusCode(200);
-
-
+                Tarefas Tarefas = new Tarefas();
+                return StatusCode(200, Tarefas.InserirTarefa(Request));
             }
 
             catch (Exception ex)
