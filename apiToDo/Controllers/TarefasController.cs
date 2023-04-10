@@ -10,14 +10,18 @@ namespace apiToDo.Controllers
     [Route("[controller]")]
     public class TarefasController : ControllerBase
     {
+        private Tarefas _tarefas;
+        public TarefasController()
+        {
+            _tarefas = new Tarefas();
+        }
         [HttpGet("buscarTarefa")]
         public ActionResult buscarTarefa([FromQuery] int ID_TAREFA)
         {
             try
             {
-                Tarefas Tarefas = new Tarefas();
-                TarefaDTO Tarefa = Tarefas.buscarTarefa(ID_TAREFA);
-                return StatusCode(200, Tarefa == null ? new {msg = "ID_TAREFA Não existe na base."} : Tarefa);
+                TarefaDTO Tarefa = _tarefas.buscarTarefa(ID_TAREFA);
+                return StatusCode(200, Tarefa == null ? new {msg = $"Tarefa com id {ID_TAREFA} Não encontrada, favor inserir um id existente." } : Tarefa);
             }
 
             catch (Exception ex)
@@ -31,8 +35,7 @@ namespace apiToDo.Controllers
         {
             try
             {
-                Tarefas Tarefas = new Tarefas();
-                return StatusCode(200, Tarefas.lstTarefas());
+                return StatusCode(200, _tarefas.lstTarefas());
             }
 
             catch (Exception ex)
@@ -46,8 +49,7 @@ namespace apiToDo.Controllers
         {
             try
             {
-                Tarefas Tarefas = new Tarefas();
-                return StatusCode(200, Tarefas.InserirTarefa(Request));
+                return StatusCode(200, _tarefas.InserirTarefa(Request));
             }
 
             catch (Exception ex)
@@ -57,13 +59,12 @@ namespace apiToDo.Controllers
         }
 
         [HttpDelete("DeletarTarefa")]
-        public ActionResult DeleteTask([FromBody] int ID_TAREFA)
+        public ActionResult DeleteTask([FromQuery] int ID_TAREFA)
         {
             try
             {
-                Tarefas Tarefas = new Tarefas();
-                var lstTarefas = Tarefas.DeletarTarefa(ID_TAREFA);
-                return StatusCode(200, lstTarefas == null ? new {msg= "O ID_TAREFA informado não existe na base, favor inserir um id existente." }: lstTarefas);
+                var lstTarefas = _tarefas.DeletarTarefa(ID_TAREFA);
+                return StatusCode(200, lstTarefas == null ? new {msg= $"Tarefa com id {ID_TAREFA} Não encontrada, favor inserir um id existente." } : lstTarefas);
             }
 
             catch (Exception ex)
@@ -77,8 +78,8 @@ namespace apiToDo.Controllers
         {
             try
             {
-                Tarefas Tarefas = new Tarefas();
-                return StatusCode(200, Tarefas.AtualizarTarefa(Request));
+                var lstTarefas = _tarefas.AtualizarTarefa(Request);
+                return StatusCode(200, lstTarefas == null ? new {msg = $"Tarefa com id {Request.ID_TAREFA} não encontrada, favor inserir um id existente." } : lstTarefas);
             }
             catch(Exception ex)
             {

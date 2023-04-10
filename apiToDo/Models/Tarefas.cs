@@ -88,7 +88,11 @@ namespace apiToDo.Models
         public List<TarefaDTO> AtualizarTarefa(TarefaDTO Request)
         {
             List<TarefaDTO> lstResponse = lstTarefas();
-            lstResponse.Where(x => x.ID_TAREFA == Request.ID_TAREFA).ToList().ForEach(s => s.DS_TAREFA = Request.DS_TAREFA);
+            List<TarefaDTO> Tarefa = lstResponse.Where(x => x.ID_TAREFA == Request.ID_TAREFA).ToList();
+            if (Tarefa.Count > 0)
+                lstResponse.Where(x => x.ID_TAREFA == Request.ID_TAREFA).ToList().ForEach(s => s.DS_TAREFA = Request.DS_TAREFA);
+            else
+                lstResponse = null;
 
             return lstResponse;
         }
