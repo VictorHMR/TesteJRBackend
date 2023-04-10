@@ -46,7 +46,8 @@ namespace apiToDo.Controllers
             try
             {
                 Tarefas Tarefas = new Tarefas();
-                return StatusCode(200, Tarefas.DeletarTarefa(ID_TAREFA));
+                var lstTarefas = Tarefas.DeletarTarefa(ID_TAREFA);
+                return StatusCode(200, lstTarefas == null ? new {msg= "O ID_TAREFA informado não existe na base, favor inserir um id existente." }: lstTarefas);
             }
 
             catch (Exception ex)
