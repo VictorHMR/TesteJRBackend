@@ -57,13 +57,15 @@ namespace apiToDo.Models
             {
                 List<TarefaDTO> lstResponse = lstTarefas(); // Está sendo feito a chamado do método, para que a lista seja populada.
                 var Tarefa = lstResponse.FirstOrDefault(x => x.ID_TAREFA == ID_TAREFA); // É feito a chamada de um método para que seja retornado apenas a Tarefa com o ID_TAREFA igual ao ID_TAREFA passado na request.
-                TarefaDTO Tarefa2 = lstResponse.Where(x=> x.ID_TAREFA == Tarefa.ID_TAREFA).FirstOrDefault(); // O procedimento é o mesmo que o anterior, porém aqui ocorre erro caso o ID_TAREFA não  seja encontrado.
-                lstResponse.Remove(Tarefa); // A tarefa relativa ao ID_TAREFA passado na request é removida da lista.
-
+                //TarefaDTO Tarefa2 = lstResponse.Where(x=> x.ID_TAREFA == Tarefa.ID_TAREFA).FirstOrDefault(); // O método tem o retorno igual ao anterior porém na pratica eles funcionam de formas diferentes.
                 if (Tarefa != null)
+                {
+                    lstResponse.Remove(Tarefa); // A tarefa relativa ao ID_TAREFA passado na request é removida da lista.
                     return lstResponse; // A nova lista é retornada na response.
+                }
                 else
                     return null; //Caso não seja excluido nada, retorna null.
+
             }
             catch(Exception ex)
             {
