@@ -10,14 +10,13 @@ namespace apiToDo.Controllers
     [Route("[controller]")]
     public class TarefasController : ControllerBase
     {
-        [Authorize]
         [HttpPost("lstTarefas")]
         public ActionResult lstTarefas()
         {
             try
             {
-              
-                return StatusCode(200);
+                Tarefas Tarefas = new Tarefas();
+                return StatusCode(200, Tarefas.lstTarefas());
             }
 
             catch (Exception ex)
