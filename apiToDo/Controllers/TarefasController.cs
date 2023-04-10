@@ -45,8 +45,8 @@ namespace apiToDo.Controllers
         {
             try
             {
-
-                return StatusCode(200);
+                Tarefas Tarefas = new Tarefas();
+                return StatusCode(200, Tarefas.DeletarTarefa(ID_TAREFA));
             }
 
             catch (Exception ex)

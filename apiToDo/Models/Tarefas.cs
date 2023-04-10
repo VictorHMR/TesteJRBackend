@@ -38,8 +38,6 @@ namespace apiToDo.Models
                 throw ex;
             }
         }
-
-
         public List<TarefaDTO> InserirTarefa(TarefaDTO Request)
         {
             try
@@ -53,7 +51,7 @@ namespace apiToDo.Models
                 throw ex;
             }
         }
-        public void DeletarTarefa(int ID_TAREFA)
+        public List<TarefaDTO> DeletarTarefa(int ID_TAREFA)
         {
             try
             {
@@ -61,6 +59,8 @@ namespace apiToDo.Models
                 var Tarefa = lstResponse.FirstOrDefault(x => x.ID_TAREFA == ID_TAREFA);
                 TarefaDTO Tarefa2 = lstResponse.Where(x=> x.ID_TAREFA == Tarefa.ID_TAREFA).FirstOrDefault();
                 lstResponse.Remove(Tarefa2);
+
+                return lstResponse;
             }
             catch(Exception ex)
             {
