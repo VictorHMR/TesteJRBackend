@@ -11,7 +11,7 @@ namespace apiToDo.Models
         {
             try
             {
-                TarefaDTO Tarefa = lstTarefas().FirstOrDefault(x => x.ID_TAREFA == ID_TAREFA);
+                TarefaDTO Tarefa = listarTarefa().FirstOrDefault(x => x.ID_TAREFA == ID_TAREFA);
                 return Tarefa;
 
             }
@@ -20,7 +20,7 @@ namespace apiToDo.Models
                 throw ex;
             }
         }
-        public List<TarefaDTO> lstTarefas()
+        public List<TarefaDTO> listarTarefa()
         {
             try
             {
@@ -51,11 +51,11 @@ namespace apiToDo.Models
                 throw ex;
             }
         }
-        public List<TarefaDTO> InserirTarefa(TarefaDTO Request)
+        public List<TarefaDTO> inserirTarefa(TarefaDTO Request)
         {
             try
             {
-                List<TarefaDTO> lstResponse = lstTarefas();
+                List<TarefaDTO> lstResponse = listarTarefa();
                 lstResponse.Add(Request);
                 return lstResponse;
             }
@@ -64,11 +64,11 @@ namespace apiToDo.Models
                 throw ex;
             }
         }
-        public List<TarefaDTO> DeletarTarefa(int ID_TAREFA)
+        public List<TarefaDTO> deletarTarefa(int ID_TAREFA)
         {
             try
             {
-                List<TarefaDTO> lstResponse = lstTarefas(); // Está sendo feito a chamado do método, para que a lista seja populada.
+                List<TarefaDTO> lstResponse = listarTarefa(); // Está sendo feito a chamado do método, para que a lista seja populada.
                 var Tarefa = lstResponse.FirstOrDefault(x => x.ID_TAREFA == ID_TAREFA); // É feito a chamada de um método para que seja retornado apenas a Tarefa com o ID_TAREFA igual ao ID_TAREFA passado na request.
                 //TarefaDTO Tarefa2 = lstResponse.Where(x=> x.ID_TAREFA == Tarefa.ID_TAREFA).FirstOrDefault(); // O método tem o retorno igual ao anterior porém na pratica eles funcionam de formas diferentes.
                 if (Tarefa != null)
@@ -85,9 +85,9 @@ namespace apiToDo.Models
                 throw ex;
             }
         }
-        public List<TarefaDTO> AtualizarTarefa(TarefaDTO Request)
+        public List<TarefaDTO> atualizarTarefa(TarefaDTO Request)
         {
-            List<TarefaDTO> lstResponse = lstTarefas();
+            List<TarefaDTO> lstResponse = listarTarefa();
             List<TarefaDTO> Tarefa = lstResponse.Where(x => x.ID_TAREFA == Request.ID_TAREFA).ToList();
             if (Tarefa.Count > 0)
                 lstResponse.Where(x => x.ID_TAREFA == Request.ID_TAREFA).ToList().ForEach(s => s.DS_TAREFA = Request.DS_TAREFA);

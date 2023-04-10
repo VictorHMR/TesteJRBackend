@@ -15,8 +15,9 @@ namespace apiToDo.Controllers
         {
             _tarefas = new Tarefas();
         }
-        [HttpGet("buscarTarefa")]
-        public ActionResult buscarTarefa([FromQuery] int ID_TAREFA)
+
+        [HttpGet("{ID_TAREFA}")]
+        public ActionResult buscarTarefa(int ID_TAREFA)
         {
             try
             {
@@ -30,12 +31,12 @@ namespace apiToDo.Controllers
             }
         }
 
-        [HttpGet("lstTarefas")]
-        public ActionResult lstTarefas()
+        [HttpGet]
+        public ActionResult listarTarefas()
         {
             try
             {
-                return StatusCode(200, _tarefas.lstTarefas());
+                return StatusCode(200, _tarefas.listarTarefa());
             }
 
             catch (Exception ex)
@@ -44,12 +45,12 @@ namespace apiToDo.Controllers
             }
         }
 
-        [HttpPost("InserirTarefas")]
-        public ActionResult InserirTarefas([FromBody] TarefaDTO Request)
+        [HttpPost]
+        public ActionResult InserirTarefa([FromBody] TarefaDTO Request)
         {
             try
             {
-                return StatusCode(200, _tarefas.InserirTarefa(Request));
+                return StatusCode(200, _tarefas.inserirTarefa(Request));
             }
 
             catch (Exception ex)
@@ -58,12 +59,12 @@ namespace apiToDo.Controllers
             }
         }
 
-        [HttpDelete("DeletarTarefa")]
+        [HttpDelete]
         public ActionResult DeleteTask([FromQuery] int ID_TAREFA)
         {
             try
             {
-                var lstTarefas = _tarefas.DeletarTarefa(ID_TAREFA);
+                var lstTarefas = _tarefas.deletarTarefa(ID_TAREFA);
                 return StatusCode(200, lstTarefas == null ? new {msg= $"Tarefa com id {ID_TAREFA} Não encontrada, favor inserir um id existente." } : lstTarefas);
             }
 
@@ -73,12 +74,12 @@ namespace apiToDo.Controllers
             }
         }
 
-        [HttpPut("AtualizarTarefa")]
+        [HttpPut]
         public ActionResult UpdateTask([FromBody] TarefaDTO Request)
         {
             try
             {
-                var lstTarefas = _tarefas.AtualizarTarefa(Request);
+                var lstTarefas = _tarefas.atualizarTarefa(Request);
                 return StatusCode(200, lstTarefas == null ? new {msg = $"Tarefa com id {Request.ID_TAREFA} não encontrada, favor inserir um id existente." } : lstTarefas);
             }
             catch(Exception ex)
