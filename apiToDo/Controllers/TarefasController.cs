@@ -10,6 +10,22 @@ namespace apiToDo.Controllers
     [Route("[controller]")]
     public class TarefasController : ControllerBase
     {
+        [HttpGet("buscarTarefa")]
+        public ActionResult exibirTarefa([FromQuery] int ID_TAREFA)
+        {
+            try
+            {
+                Tarefas Tarefas = new Tarefas();
+                TarefaDTO Tarefa = Tarefas.buscarTarefa(ID_TAREFA);
+                return StatusCode(200, Tarefa == null ? new {msg = "ID_TAREFA Não existe na base."} : Tarefa);
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(400, new { msg = $"Ocorreu um erro em sua API {ex.Message}"});
+            }
+        }
+
         [HttpGet("lstTarefas")]
         public ActionResult lstTarefas()
         {

@@ -7,6 +7,19 @@ namespace apiToDo.Models
 {
     public class Tarefas
     {
+        public TarefaDTO buscarTarefa(int ID_TAREFA)
+        {
+            try
+            {
+                TarefaDTO Tarefa = lstTarefas().FirstOrDefault(x => x.ID_TAREFA == ID_TAREFA);
+                return Tarefa;
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
         public List<TarefaDTO> lstTarefas()
         {
             try
